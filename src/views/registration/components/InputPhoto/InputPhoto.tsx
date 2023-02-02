@@ -54,7 +54,7 @@ function InputPhoto() {
   })
 
   const handleSetScale = (event: ChangeEvent<HTMLInputElement>) => {
-    const inputValue = Number(event.target.value);
+    const inputValue = Number(event.target.value)
 
     setScale(inputValue)
   }

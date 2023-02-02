@@ -7,6 +7,10 @@ import { SubmitButton } from '@/components/SubmitButton'
 import './Registration.scss'
 
 function Registration() {
+  const handleValidation = (verified: boolean) => {
+    // console.log(verified)
+  }
+
   return (
     <PageContainer>
       <form className="registration">
@@ -15,10 +19,10 @@ function Registration() {
           <InputPhoto />
         </div>
         <div className="registration__inputs">
-          <div className="registration__box">My best username ever</div>
-          <Input placeholder="E-mail" required />
-          <Input placeholder="Password" required />
-          <Input placeholder="Confirm password" required />
+          <Input placeholder="Username" required />
+          <Input placeholder="E-mail" required type="email" handleValidation={handleValidation} />
+          <Input placeholder="Password" required type="password" />
+          <Input placeholder="Confirm password" required type="password" />
         </div>
         <div className="registration__policies">
           <InputCheckbox required>
