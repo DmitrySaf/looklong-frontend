@@ -1,0 +1,22 @@
+@import '../variables';
+
+@mixin dotted-circle() {
+  --d: 4deg; /* distance between dashes */
+  --n: 30; /* number of dashes */
+
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid transparent; /* control the thickness of border*/
+  background: linear-gradient(#fff, #fff) padding-box padding-box,
+    repeating-conic-gradient(
+        $color-primary-opacity 0 calc(360deg / var(--n) - var(--d)),
+        transparent 0 calc(360deg / var(--n))
+      )
+      border-box;
+
+  &::before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}

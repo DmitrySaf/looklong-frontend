@@ -1,0 +1,22 @@
+@import '@/assets/styles/variables';
+
+$color-button-disabled: rgba(28, 28, 28, 0.1);
+
+.submit-button {
+  width: 150px;
+  height: 34px;
+  border: none;
+  background-color: $color-primary;
+  border-radius: 7px;
+  color: $color-white;
+  cursor: pointer;
+  font-size: $font-size-small;
+  line-height: $line-height-small;
+  font-family: $font-family;
+  transition: $transition-time all;
+
+  &_disabled {
+    color: $color-primary-opacity;
+    background-color: $color-button-disabled;
+  }
+}

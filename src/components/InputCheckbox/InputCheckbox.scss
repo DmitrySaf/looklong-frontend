@@ -1,0 +1,39 @@
+@import '@/assets/styles/variables';
+
+.input-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__input {
+    appearance: none;
+    height: 17px;
+    width: 17px;
+    margin: 0;
+    box-shadow: 0 0 0 1px $color-black, inset 0 0 0 1px $color-white;
+    transition: $transition-time background-color;
+    background-color: $color-white;
+    margin: 1px;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:checked {
+      background-color: $color-black;
+    }
+  }
+
+  &__text {
+    cursor: pointer;
+    color: $color-primary-opacity;
+
+    &::after {
+      content: attr(data-required);
+      color: $color-red;
+    }
+
+    & > a {
+      all: unset;
+      text-decoration: underline;
+    }
+  }
+}

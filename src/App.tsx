@@ -1,9 +1,9 @@
+import Registration from '@/views/registration/pages/Registration/Registration'
+
+import './assets/styles/index.scss'
+
 function App() {
-  return (
-    <div className="App">
-      <h1>hi</h1>
-    </div>
-  )
+  return <Registration />
 }
 
 export default App
