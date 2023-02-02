@@ -1,1 +1,1 @@
-<h1 align="center">DEMO</h1>
+<h1 align="center"><a href="https://dmitrysaf.github.io/looklong-frontend/">DEMO</a></h1>
