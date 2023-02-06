@@ -6,12 +6,14 @@ type Props = {
   placeholder: string
   type?: string
   required?: boolean
-  name?: string
-  value?: string
   errorMessage?: string
+  field?: {
+    name?: string
+    value?: string
+  }
 }
 
-function TextInput({ errorMessage, ...props }: Props) {
+function TextInput({ errorMessage, field, ...props }: Props) {
   const inputClassnames = classNames({
     'input-text': true,
     'input-text_invalid': errorMessage === undefined ? false : true
@@ -19,7 +21,7 @@ function TextInput({ errorMessage, ...props }: Props) {
 
   return (
     <div className={inputClassnames}>
-      <input className="input-text__element" {...props} />
+      <input className="input-text__element" {...props} {...field} />
       <div className="input-text__status">{errorMessage}</div>
     </div>
   )

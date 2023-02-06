@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import classNames from 'classnames'
 
 import './InputPhoto.scss'
+import files from '@/assets/img/files.svg'
 
 const MIN_INPUT_VALUE = 100
 const MAX_INPUT_VALUE = 500
@@ -10,6 +11,7 @@ const MAX_INPUT_VALUE = 500
 function InputPhoto() {
   const [image, setImage] = useState('')
   const [scale, setScale] = useState(MIN_INPUT_VALUE)
+  const [isHoverActive, setIsHoverActive] = useState(false)
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     acceptedFiles.map((file: Blob) => {
@@ -25,7 +27,7 @@ function InputPhoto() {
       return file
     })
   }, [])
-  const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
+  const { getRootProps, getInputProps, fileRejections, isDragActive } = useDropzone({
     accept: {
       'image/png': [],
       'image/jpeg': [],
@@ -39,7 +41,6 @@ function InputPhoto() {
   const circleClassnames = classNames({
     'input-photo__circle': true,
     'input-photo__circle_chosen': image,
-    'input-photo__circle_action_hover': isDragActive,
     'input-photo__circle_rejected': fileRejections.length > 0
   })
 
@@ -72,7 +73,13 @@ function InputPhoto() {
 
   return (
     <div className="input-photo">
-      <div {...getRootProps({ className: circleClassnames })}>
+      <div
+        {...getRootProps({
+          className: circleClassnames,
+          onPointerEnter: () => setIsHoverActive(true),
+          onPointerLeave: () => setIsHoverActive(false)
+        })}
+      >
         <input {...getInputProps()} />
         {!hasError() && (
           <img
@@ -81,7 +88,9 @@ function InputPhoto() {
             style={{ transform: `scale(${scale / 100})` }}
           />
         )}
-        <div className="input-photo__circle-inner-text">{circleText()}</div>
+        <div className="input-photo__circle-inner-text">
+          {isHoverActive || isDragActive ? <img src={files} alt="files" /> : circleText()}
+        </div>
       </div>
       <input
         type="range"

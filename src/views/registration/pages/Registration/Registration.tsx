@@ -1,5 +1,4 @@
 import { useFormik } from 'formik'
-import * as Yup from 'yup'
 
 import PageContainer from '@/components/Layouts/PageContainer/PageContainer'
 import { InputText } from '@/components/InputText'
@@ -7,7 +6,7 @@ import { InputCheckbox } from '@/components/InputCheckbox'
 import { SubmitButton } from '@/components/SubmitButton'
 import { InputPhoto } from '../../components/InputPhoto'
 
-import { USERNAME_REGEX } from '@/shared/validators'
+import { REGISTRATION_VALIDATION_SCHEMA as validationSchema } from '@/shared/validators'
 
 import './Registration.scss'
 
@@ -20,26 +19,18 @@ const initialValues = {
   notifications: false
 }
 
-const REQUIRED_MESSAGE = 'Required Field'
-
-const validationSchema = Yup.object({
-  username: Yup.string().matches(USERNAME_REGEX, 'Invalid Username').required(REQUIRED_MESSAGE),
-  email: Yup.string().email('Invalid E-Mail').required(REQUIRED_MESSAGE),
-  password: Yup.string().required(REQUIRED_MESSAGE),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'No match')
-    .required(REQUIRED_MESSAGE),
-  politics: Yup.boolean().required(REQUIRED_MESSAGE)
-})
-
 function Registration() {
-  const { handleSubmit, getFieldProps, errors } = useFormik({
+  const { handleSubmit, getFieldProps, errors, touched } = useFormik({
     initialValues,
     validationSchema,
     onSubmit(values, formikHelpers) {
       console.log(values, formikHelpers)
     }
   })
+
+  const getErrorMessage = (key: keyof typeof initialValues): string | undefined => {
+    return touched[key] ? errors[key] : undefined
+  }
 
   return (
     <PageContainer>
@@ -52,25 +43,25 @@ function Registration() {
           <InputText
             placeholder="Username"
             type="text"
-            errorMessage={errors.username}
+            errorMessage={getErrorMessage('username')}
             {...getFieldProps('username')}
           />
           <InputText
             placeholder="E-mail"
             type="email"
-            errorMessage={errors.email}
+            errorMessage={getErrorMessage('email')}
             {...getFieldProps('email')}
           />
           <InputText
             placeholder="Password"
             type="password"
-            errorMessage={errors.password}
+            errorMessage={getErrorMessage('password')}
             {...getFieldProps('password')}
           />
           <InputText
             placeholder="Confirm password"
             type="password"
-            errorMessage={errors.confirmPassword}
+            errorMessage={getErrorMessage('confirmPassword')}
             {...getFieldProps('confirmPassword')}
           />
         </div>

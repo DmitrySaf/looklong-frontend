@@ -20,14 +20,6 @@ $field-width: 262px;
       @include dotted-circle();
     }
 
-    &_action {
-      &_hover {
-        & .input-photo__circle-inner-text {
-          font-size: 14px;
-        }
-      }
-    }
-
     &_rejected {
       @include dotted-circle($color-red, !important);
 
