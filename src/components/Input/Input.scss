@@ -14,13 +14,13 @@
     outline: none;
     font-family: $font-family;
     font-size: $font-size-small;
-  }
 
-  &:focus {
-    border: 2px solid rgba(28, 28, 28, 1);
-
-    &::placeholder {
-      color: rgba(28, 28, 28, 1);
+    &:focus {
+      border: 2px solid rgba(28, 28, 28, 1);
+  
+      &::placeholder {
+        color: rgba(28, 28, 28, 1);
+      }
     }
   }
 
