@@ -4,45 +4,28 @@ import classNames from 'classnames'
 
 import './InputPhoto.scss'
 
-interface Image {
-  src: string
-  size?: {
-    width: number
-    height: number
-  }
-}
-
 const MIN_INPUT_VALUE = 100
 const MAX_INPUT_VALUE = 500
 
 function InputPhoto() {
-  const [image, setImage] = useState<Image>({ src: '' })
+  const [image, setImage] = useState('')
   const [scale, setScale] = useState(MIN_INPUT_VALUE)
-  const inputRef = useRef(null)
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     acceptedFiles.map((file: Blob) => {
       const reader = new FileReader()
-      const imageObj = new Image()
 
       reader.onload = function () {
         if (typeof reader.result !== 'string') return
 
-        imageObj.src = reader.result
-
-        setImage({ src: reader.result })
-      }
-      imageObj.onload = () => {
-        const { width, height } = imageObj
-        console.log(imageObj.sizes)
-        setImage((prevObj) => ({ ...prevObj, size: { height, width } }))
+        setImage(reader.result)
       }
       reader.readAsDataURL(file)
 
       return file
     })
   }, [])
-  const { getRootProps, getInputProps, isDragActive, isDragReject, fileRejections } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
     accept: {
       'image/png': [],
       'image/jpeg': [],
@@ -55,7 +38,7 @@ function InputPhoto() {
   })
   const circleClassnames = classNames({
     'input-photo__circle': true,
-    'input-photo__circle_chosen': image.src,
+    'input-photo__circle_chosen': image,
     'input-photo__circle_action_hover': isDragActive,
     'input-photo__circle_rejected': fileRejections.length > 0
   })
@@ -80,14 +63,18 @@ function InputPhoto() {
 
     setScale(inputValue)
   }
-  console.log(circleText())
+
+  const hasError = () => {
+    return image === '' || fileRejections.length > 0
+  }
+
   return (
     <div className="input-photo">
       <div {...getRootProps({ className: circleClassnames })}>
-        <input {...getInputProps()} ref={inputRef}/>
-        {image.src && (
+        <input {...getInputProps()}/>
+        {!hasError() && (
           <img
-            src={image.src}
+            src={image}
             className="input-photo__image"
             style={{ transform: `scale(${scale / 100})` }}
           />
@@ -102,6 +89,7 @@ function InputPhoto() {
         max={MAX_INPUT_VALUE}
         value={scale}
         onChange={handleSetScale}
+        disabled={hasError()}
         className="input-photo__range-slider"
       />
     </div>
