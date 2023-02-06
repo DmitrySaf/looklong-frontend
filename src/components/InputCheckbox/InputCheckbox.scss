@@ -20,16 +20,16 @@
     &:checked {
       background-color: $color-black;
     }
+
+    &:required ~ span::after {
+      content: '*';
+      color: $color-red;
+    }
   }
 
   &__text {
     cursor: pointer;
     color: $color-primary-opacity;
-
-    &::after {
-      content: attr(data-required);
-      color: $color-red;
-    }
 
     & > a {
       all: unset;

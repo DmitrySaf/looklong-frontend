@@ -4,17 +4,16 @@ import './SubmitButton.scss'
 
 type Props = {
   text: string
-  disabled: boolean
+  disabled?: boolean
 }
 
 function SubmitButton({ text, disabled }: Props) {
   const buttonClassnames = classNames({
-    'submit-button': true,
-    'submit-button_disabled': disabled
+    'submit-button': true
   })
 
   return (
-    <button className={buttonClassnames} type="submit">
+    <button className={buttonClassnames} type="submit" disabled={disabled}>
       {text}
     </button>
   )

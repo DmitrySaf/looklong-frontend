@@ -1,41 +1,89 @@
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+
 import PageContainer from '@/components/Layouts/PageContainer/PageContainer'
-import { Input } from '@/components/Input'
+import { InputText } from '@/components/InputText'
 import { InputCheckbox } from '@/components/InputCheckbox'
-import { InputPhoto } from '../../components/InputPhoto'
 import { SubmitButton } from '@/components/SubmitButton'
+import { InputPhoto } from '../../components/InputPhoto'
+
+import { USERNAME_REGEX } from '@/shared/validators'
 
 import './Registration.scss'
 
+const initialValues = {
+  username: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+  politics: false,
+  notifications: false
+}
+
+const REQUIRED_MESSAGE = 'Required Field'
+
+const validationSchema = Yup.object({
+  username: Yup.string().matches(USERNAME_REGEX, 'Invalid Username').required(REQUIRED_MESSAGE),
+  email: Yup.string().email('Invalid E-Mail').required(REQUIRED_MESSAGE),
+  password: Yup.string().required(REQUIRED_MESSAGE),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'No match')
+    .required(REQUIRED_MESSAGE),
+  politics: Yup.boolean().required(REQUIRED_MESSAGE)
+})
+
 function Registration() {
-  const handleValidation = (verified: boolean) => {
-    // console.log(verified)
-  }
+  const { handleSubmit, getFieldProps, errors } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit(values, formikHelpers) {
+      console.log(values, formikHelpers)
+    }
+  })
 
   return (
     <PageContainer>
-      <form className="registration">
+      <form className="registration" onSubmit={handleSubmit}>
         <h1 className="registration__header">Sign up</h1>
         <div className="registration__input-photo-wrapper">
           <InputPhoto />
         </div>
         <div className="registration__inputs">
-          <Input placeholder="Username" required />
-          <Input placeholder="E-mail" required type="email" handleValidation={handleValidation} />
-          <Input placeholder="Password" required type="password" />
-          <Input placeholder="Confirm password" required type="password" />
+          <InputText
+            placeholder="Username"
+            type="text"
+            errorMessage={errors.username}
+            {...getFieldProps('username')}
+          />
+          <InputText
+            placeholder="E-mail"
+            type="email"
+            errorMessage={errors.email}
+            {...getFieldProps('email')}
+          />
+          <InputText
+            placeholder="Password"
+            type="password"
+            errorMessage={errors.password}
+            {...getFieldProps('password')}
+          />
+          <InputText
+            placeholder="Confirm password"
+            type="password"
+            errorMessage={errors.confirmPassword}
+            {...getFieldProps('confirmPassword')}
+          />
         </div>
         <div className="registration__policies">
-          <InputCheckbox required>
-            <a href="#">Politics</a>
-            <span> and </span>
-            <a href="#">cookie i vsya zalupa</a>
+          <InputCheckbox {...getFieldProps('politics')}>
+            <a href="#">Politics</a> and <a href="#">cookie i vsya zalupa</a>
           </InputCheckbox>
-          <InputCheckbox>
+          <InputCheckbox {...getFieldProps('notifications')}>
             <a href="#">Subcribe to notificates</a>
           </InputCheckbox>
         </div>
         <div className="registration__submit-button-wrapper">
-          <SubmitButton text="Continue" disabled={true} />
+          <SubmitButton text="Continue" />
         </div>
       </form>
     </PageContainer>

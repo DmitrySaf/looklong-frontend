@@ -22,7 +22,9 @@
   ],
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "import/extensions": "off",
+    "import/no-extraneous-dependencies": "off"
   },
   "settings": {
     "react": {

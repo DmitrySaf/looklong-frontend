@@ -1,4 +1,4 @@
-import { useState, useCallback, ChangeEvent, useRef } from 'react'
+import { useState, useCallback, ChangeEvent } from 'react'
 import { useDropzone } from 'react-dropzone'
 import classNames from 'classnames'
 
@@ -33,7 +33,7 @@ function InputPhoto() {
     },
     onDrop,
     noKeyboard: true,
-    maxSize: 1e+6,
+    maxSize: 1e6,
     multiple: false
   })
   const circleClassnames = classNames({
@@ -49,14 +49,16 @@ function InputPhoto() {
 
   const circleText = () => {
     if (fileRejections[0]?.errors[0]?.message === undefined) {
-      return (<>
-        DRAG&DROP <br />
-        OR CLICK <br />
-        .JPG .PNG .GIF
-      </>)
+      return (
+        <>
+          DRAG&DROP <br />
+          OR CLICK <br />
+          .JPG .PNG .GIF
+        </>
+      )
     }
     return formatRejectionMessage(fileRejections[0].errors[0].message)
-  };
+  }
 
   const handleSetScale = (event: ChangeEvent<HTMLInputElement>) => {
     const inputValue = Number(event.target.value)
@@ -71,7 +73,7 @@ function InputPhoto() {
   return (
     <div className="input-photo">
       <div {...getRootProps({ className: circleClassnames })}>
-        <input {...getInputProps()}/>
+        <input {...getInputProps()} />
         {!hasError() && (
           <img
             src={image}
@@ -79,9 +81,7 @@ function InputPhoto() {
             style={{ transform: `scale(${scale / 100})` }}
           />
         )}
-        <div className="input-photo__circle-inner-text">
-          { circleText() }
-        </div>
+        <div className="input-photo__circle-inner-text">{circleText()}</div>
       </div>
       <input
         type="range"

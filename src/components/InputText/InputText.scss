@@ -1,6 +1,6 @@
 @import '@/assets/styles/variables';
 
-.input {
+.input-text {
   position: relative;
   overflow: hidden;
 
@@ -17,10 +17,21 @@
 
     &:focus {
       border: 2px solid rgba(28, 28, 28, 1);
-  
+
       &::placeholder {
         color: rgba(28, 28, 28, 1);
       }
+    }
+
+    &:required + div::after {
+      content: '*';
+      position: absolute;
+      top: 18px;
+      left: -26px;
+      transform: translateY(-50%);
+      font-size: 20px;
+      line-height: 30px;
+      color: #a31621;
     }
   }
 
@@ -43,14 +54,18 @@
     border-radius: 3px;
     padding: 5px;
     text-align: center;
-    transition: .150s all linear;
+    transition: 0.15s all linear;
     transform: translate(100%, -50%);
   }
 
   &_invalid {
-    & > .input__status {
+    & > .input-text__status {
       right: 20px;
       transform: translate(0, -50%);
+
+      &::after {
+        display: none;
+      }
     }
   }
 }

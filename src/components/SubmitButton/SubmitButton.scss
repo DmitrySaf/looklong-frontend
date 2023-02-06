@@ -15,7 +15,8 @@ $color-button-disabled: rgba(28, 28, 28, 0.1);
   font-family: $font-family;
   transition: $transition-time all;
 
-  &_disabled {
+  &:disabled {
+    cursor: not-allowed;
     color: $color-primary-opacity;
     background-color: $color-button-disabled;
   }
