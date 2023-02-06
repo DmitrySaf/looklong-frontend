@@ -16,5 +16,5 @@ export const REGISTRATION_VALIDATION_SCHEMA = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], UNMATCHING_PASSWORD_MESSAGE)
     .required(REQUIRED_MESSAGE),
-  politics: Yup.boolean().required(REQUIRED_MESSAGE)
+  politics: Yup.boolean().oneOf([true]).required(REQUIRED_MESSAGE)
 })

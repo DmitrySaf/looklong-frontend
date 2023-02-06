@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import classNames from 'classnames'
 
 import './InputCheckbox.scss'
 
@@ -8,11 +9,16 @@ type Props = {
   required?: boolean
 }
 
-function InputCheckbox({ children, ...props }: Props) {
+function InputCheckbox({ children, required, ...props }: Props) {
+  const inputTextClassnames = classNames({
+    'input-checkbox__text': true,
+    'input-checkbox__text_required': required
+  })
+
   return (
     <div className="input-checkbox">
       <input type="checkbox" className="input-checkbox__input" {...props} />
-      <span className="input-checkbox__text">{children}</span>
+      <span className={inputTextClassnames}>{children}</span>
     </div>
   )
 }

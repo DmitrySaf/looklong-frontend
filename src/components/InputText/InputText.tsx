@@ -13,10 +13,11 @@ type Props = {
   }
 }
 
-function TextInput({ errorMessage, field, ...props }: Props) {
+function TextInput({ errorMessage, required, field, ...props }: Props) {
   const inputClassnames = classNames({
     'input-text': true,
-    'input-text_invalid': errorMessage === undefined ? false : true
+    'input-text_invalid': errorMessage === undefined ? false : true,
+    'input-text_required': required
   })
 
   return (

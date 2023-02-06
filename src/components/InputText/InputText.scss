@@ -22,17 +22,17 @@
         color: rgba(28, 28, 28, 1);
       }
     }
+  }
 
-    &:required + div::after {
-      content: '*';
-      position: absolute;
-      top: 18px;
-      left: -26px;
-      transform: translateY(-50%);
-      font-size: 20px;
-      line-height: 30px;
-      color: #a31621;
-    }
+  &_required > .input-text__status::after {
+    content: '*';
+    position: absolute;
+    top: 18px;
+    left: -26px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    line-height: 30px;
+    color: #a31621;
   }
 
   &::placeholder {
