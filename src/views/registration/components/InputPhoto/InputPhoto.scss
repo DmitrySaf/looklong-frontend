@@ -55,6 +55,10 @@ $field-width: 262px;
     appearance: none;
     width: 100%;
 
+    &:disabled {
+      opacity: .6;
+    }
+
     &:focus {
       outline: none;
 

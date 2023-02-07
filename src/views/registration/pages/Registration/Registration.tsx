@@ -5,6 +5,7 @@ import PageContainer from '@/components/Layouts/PageContainer/PageContainer'
 import { InputText } from '@/components/InputText'
 import { InputCheckbox } from '@/components/InputCheckbox'
 import { SubmitButton } from '@/components/SubmitButton'
+import { FieldTooltip } from '@/components/FieldTooltip'
 import { InputPhoto } from '../../components/InputPhoto'
 
 import { REGISTRATION_VALIDATION_SCHEMA as validationSchema } from '@/shared/validators'
@@ -77,9 +78,11 @@ function Registration() {
           />
         </div>
         <div className="registration__policies">
-          <InputCheckbox required {...getFieldProps('politics')}>
-            <a href="#">Politics</a> and <a href="#">cookie i vsya zalupa</a>
-          </InputCheckbox>
+          <FieldTooltip text={getErrorMessage('politics')}>
+            <InputCheckbox required {...getFieldProps('politics')}>
+              <a href="#">Politics</a> and <a href="#">cookie i vsya zalupa</a>
+            </InputCheckbox>
+          </FieldTooltip>
           <InputCheckbox {...getFieldProps('notifications')}>
             <a href="#">Subcribe to notificates</a>
           </InputCheckbox>
