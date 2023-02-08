@@ -1,4 +1,5 @@
 import { useFormik } from 'formik'
+import { Link } from 'react-router-dom'
 
 import PageContainer from '@/components/Layouts/PageContainer/PageContainer'
 import { InputText } from '@/components/InputText'
@@ -51,7 +52,12 @@ function Registration() {
   return (
     <PageContainer>
       <form className="registration" onSubmit={handleSubmit}>
-        <h1 className="registration__header">Sign up</h1>
+        <div className="registration__header-wrapper">
+          <Link to={`..`} className="registration__router-link">
+            <div className="registration__router-link-arrow">{'<-'}</div> look long/
+          </Link>
+          <h1 className="registration__header">Sign up</h1>
+        </div>
         <div className="registration__input-photo-wrapper">
           <InputPhoto />
         </div>

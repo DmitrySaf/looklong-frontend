@@ -46,4 +46,18 @@
     justify-self: flex-end;
     align-self: flex-end;
   }
+
+  &__router-link {
+    text-decoration: none;
+    color: $color-primary;
+
+    &:hover > div {
+      transform: translateX(-5px);
+    }
+  }
+
+  &__router-link-arrow {
+    display: inline-block;
+    transition: $transition-time transform;
+  }
 }
