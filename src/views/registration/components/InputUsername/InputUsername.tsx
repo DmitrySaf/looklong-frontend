@@ -22,7 +22,6 @@ enum SearchStatus {
 }
 
 function InputUsername({ errorMessage, required, value, ...props }: Props) {
-  const [results, setResults] = useState([])
   const [status, setStatus] = useState<SearchStatus | undefined>(undefined)
 
   const debouncedSearchTerm = useDebounce(value ?? '', 500)
@@ -30,8 +29,7 @@ function InputUsername({ errorMessage, required, value, ...props }: Props) {
   const searchUsers = async () => {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => response.json())
-      .then((json) => {
-        setResults(json)
+      .then(() => {
         if (Math.random() > 0.5) {
           setStatus(SearchStatus.Unique)
         } else {
@@ -44,8 +42,6 @@ function InputUsername({ errorMessage, required, value, ...props }: Props) {
     if (debouncedSearchTerm) {
       setStatus(SearchStatus.Searching)
       searchUsers()
-    } else {
-      setResults([])
     }
   }, [debouncedSearchTerm])
 
@@ -66,7 +62,7 @@ function InputUsername({ errorMessage, required, value, ...props }: Props) {
     <FieldTooltip text={errorMessage}>
       <div className={inputClassnames}>
         <input className="input-username__element" {...props} value={value} />
-        {status && <div className={statusClassnames}>{status}</div>}
+        <div className={statusClassnames}>{status}</div>
       </div>
     </FieldTooltip>
   )

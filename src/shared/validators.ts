@@ -1,26 +1,59 @@
-import * as Yup from 'yup'
-
-const USERNAME_REGEX = /^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/g
-
-const MIN_USERNAME_LENGTH = 2
-const MAX_USERNAME_LENGTH = 18
-const MIN_PASSWORD_LENGTH = 6
+import { string, ref, boolean, object } from 'yup'
 
 const REQUIRED_MESSAGE = 'Required Field'
-const INVALID_USERNAME_MESSAGE = 'Invalid Username'
-const INVALID_EMAIL_MESSAGE = 'Invalid E-Mail'
+
+// USERNAME
+
+const USERNAME_REGEX = /^(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/g
+const USERNAME_MESSAGE = 'Invalid Username'
+
+const MIN_USERNAME_LENGTH = 2
+const MIN_USERNAME_LENGTH_MESSAGE = `Username length cannot be less than ${MIN_USERNAME_LENGTH} characters`
+
+const MAX_USERNAME_LENGTH = 18
+const MAX_USERNAME_LENGTH_MESSAGE = `Username length cannot be more than ${MAX_USERNAME_LENGTH} characters`
+
+export function usernameValidation() {
+  return string()
+    .matches(USERNAME_REGEX, USERNAME_MESSAGE)
+    .min(MIN_USERNAME_LENGTH, MIN_USERNAME_LENGTH_MESSAGE)
+    .max(MAX_USERNAME_LENGTH, MAX_USERNAME_LENGTH_MESSAGE)
+    .required(REQUIRED_MESSAGE)
+}
+
+// EMAIL
+
+const EMAIL_MESSAGE = 'Invalid E-Mail'
+
+export function emailValidation() {
+  return string().email(EMAIL_MESSAGE).required(REQUIRED_MESSAGE)
+}
+
+// PASSWORD
+
+const MIN_PASSWORD_LENGTH = 6
+const MIN_PASSWORD_LENGTH_MESSAGE = `Password length cannot be less than ${MIN_PASSWORD_LENGTH} characters`
+
+export function passwordValidation() {
+  return string().min(MIN_PASSWORD_LENGTH, MIN_PASSWORD_LENGTH_MESSAGE).required(REQUIRED_MESSAGE)
+}
+
+// CONFIRM PASSWORD
+
 const UNMATCHING_PASSWORD_MESSAGE = 'No match'
 
-export const REGISTRATION_VALIDATION_SCHEMA = Yup.object({
-  username: Yup.string()
-    .matches(USERNAME_REGEX, INVALID_USERNAME_MESSAGE)
-    .min(MIN_USERNAME_LENGTH)
-    .max(MAX_USERNAME_LENGTH)
-    .required(REQUIRED_MESSAGE),
-  email: Yup.string().email(INVALID_EMAIL_MESSAGE).required(REQUIRED_MESSAGE),
-  password: Yup.string().min(MIN_PASSWORD_LENGTH).required(REQUIRED_MESSAGE),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref('password'), null], UNMATCHING_PASSWORD_MESSAGE)
-    .required(REQUIRED_MESSAGE),
-  politics: Yup.boolean().oneOf([true], REQUIRED_MESSAGE)
-})
+export function confirmPasswordValidation() {
+  return string()
+    .oneOf([ref('password'), null], UNMATCHING_PASSWORD_MESSAGE)
+    .required(REQUIRED_MESSAGE)
+}
+
+// POLITICS
+
+export function politicsValidation() {
+  return boolean().oneOf([true], REQUIRED_MESSAGE)
+}
+
+export function createValidationSchema(obj: any) {
+  return object(obj)
+}

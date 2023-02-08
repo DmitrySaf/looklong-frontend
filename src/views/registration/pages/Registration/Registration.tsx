@@ -1,15 +1,20 @@
-import { FormEvent } from 'react'
 import { useFormik } from 'formik'
 
 import PageContainer from '@/components/Layouts/PageContainer/PageContainer'
 import { InputText } from '@/components/InputText'
 import { InputCheckbox } from '@/components/InputCheckbox'
 import { SubmitButton } from '@/components/SubmitButton'
-import { FieldTooltip } from '@/components/FieldTooltip'
 import { InputPhoto } from '../../components/InputPhoto'
 import { InputUsername } from '../../components/InputUsername'
 
-import { REGISTRATION_VALIDATION_SCHEMA as validationSchema } from '@/shared/validators'
+import {
+  createValidationSchema,
+  usernameValidation,
+  emailValidation,
+  passwordValidation,
+  confirmPasswordValidation,
+  politicsValidation
+} from '@/shared/validators'
 
 import './Registration.scss'
 
@@ -21,6 +26,14 @@ const initialValues = {
   politics: false,
   notifications: false
 }
+
+const validationSchema = createValidationSchema({
+  username: usernameValidation(),
+  email: emailValidation(),
+  password: passwordValidation(),
+  confirmPassword: confirmPasswordValidation(),
+  politics: politicsValidation()
+})
 
 function Registration() {
   const { handleSubmit, getFieldProps, errors, touched, isValid, dirty } = useFormik({
@@ -35,15 +48,9 @@ function Registration() {
     return touched[key] ? errors[key] : undefined
   }
 
-  const handleSubmitFn = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-
-    handleSubmit()
-  }
-
   return (
     <PageContainer>
-      <form className="registration" onSubmit={handleSubmitFn}>
+      <form className="registration" onSubmit={handleSubmit}>
         <h1 className="registration__header">Sign up</h1>
         <div className="registration__input-photo-wrapper">
           <InputPhoto />
@@ -79,11 +86,13 @@ function Registration() {
           />
         </div>
         <div className="registration__policies">
-          <FieldTooltip text={getErrorMessage('politics')}>
-            <InputCheckbox required {...getFieldProps('politics')}>
-              <a href="#">Politics</a> and <a href="#">cookie i vsya zalupa</a>
-            </InputCheckbox>
-          </FieldTooltip>
+          <InputCheckbox
+            required
+            errorMessage={getErrorMessage('politics')}
+            {...getFieldProps('politics')}
+          >
+            <a href="#">Politics</a> and <a href="#">cookie i vsya zalupa</a>
+          </InputCheckbox>
           <InputCheckbox {...getFieldProps('notifications')}>
             <a href="#">Subcribe to notificates</a>
           </InputCheckbox>

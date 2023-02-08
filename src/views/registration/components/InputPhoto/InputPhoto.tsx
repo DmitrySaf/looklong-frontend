@@ -1,4 +1,4 @@
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback, ChangeEvent, memo } from 'react'
 import { useDropzone } from 'react-dropzone'
 import classNames from 'classnames'
 
@@ -105,4 +105,4 @@ function InputPhoto() {
   )
 }
 
-export default InputPhoto
+export default memo(InputPhoto)
