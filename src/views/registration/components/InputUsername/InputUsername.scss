@@ -1,0 +1,57 @@
+@import '@/assets/styles/variables';
+@import '@/assets/styles/mixins/input';
+
+.input-username {
+  position: relative;
+  overflow: hidden;
+
+  &__element {
+    @include input();
+  }
+
+  &_required::after {
+    content: '*';
+    position: absolute;
+    top: 14px;
+    right: 18px;
+    font-size: 20px;
+    line-height: 30px;
+    color: $color-red;
+  }
+
+  &__status {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    width: 108px;
+    height: 28px;
+    background-color: $color-red;
+    color: $color-white;
+    border-radius: 3px;
+    padding: 5px;
+    text-align: center;
+    transition: 0.15s all linear;
+    transform: translate(100%, -50%);
+
+    &_active {
+      right: 20px;
+      transform: translate(0, -50%);
+
+      &::after {
+        display: none;
+      }
+    }
+
+    &_color {
+      &_grey {
+        background-color: $color-primary;
+      }
+      &_green {
+        background-color: $color-green;
+      }
+      &_red {
+        background-color: $color-red;
+      }
+    }
+  }
+}

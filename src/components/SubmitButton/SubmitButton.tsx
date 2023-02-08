@@ -18,7 +18,9 @@ function SubmitButton({ text, disabled }: Props) {
 
   return (
     <FieldTooltip
-      text={isHoverAcitve ? 'Please complete all fields, if u want next step' : undefined}
+      text={
+        isHoverAcitve && disabled ? 'Please complete all fields, if u want next step' : undefined
+      }
       color={ColorCfg.Gray}
     >
       <button

@@ -7,6 +7,7 @@ import { InputCheckbox } from '@/components/InputCheckbox'
 import { SubmitButton } from '@/components/SubmitButton'
 import { FieldTooltip } from '@/components/FieldTooltip'
 import { InputPhoto } from '../../components/InputPhoto'
+import { InputUsername } from '../../components/InputUsername'
 
 import { REGISTRATION_VALIDATION_SCHEMA as validationSchema } from '@/shared/validators'
 
@@ -48,7 +49,7 @@ function Registration() {
           <InputPhoto />
         </div>
         <div className="registration__inputs">
-          <InputText
+          <InputUsername
             placeholder="Username"
             type="text"
             required
