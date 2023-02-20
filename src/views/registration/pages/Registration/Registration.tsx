@@ -1,5 +1,6 @@
 import { useFormik } from 'formik'
 import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 import PageContainer from '@/components/Layouts/PageContainer/PageContainer'
 import { InputText } from '@/components/InputText'
@@ -36,12 +37,33 @@ const validationSchema = createValidationSchema({
   politics: politicsValidation()
 })
 
+function createPayload(form: typeof initialValues) {
+  const { username, email, password } = form
+
+  return {
+    username,
+    email,
+    password
+  }
+}
+
 function Registration() {
+  const [loading, setLoading] = useState(false)
   const { handleSubmit, getFieldProps, errors, touched, isValid, dirty } = useFormik({
     initialValues,
     validationSchema,
-    onSubmit(values, formikHelpers) {
-      console.log(values, formikHelpers)
+    async onSubmit(values) {
+      const data = createPayload(values)
+
+      setLoading(true)
+      await fetch('http://cf57662.tw1.ru/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      setLoading(false)
     }
   })
 
@@ -104,7 +126,7 @@ function Registration() {
           </InputCheckbox>
         </div>
         <div className="registration__submit-button-wrapper">
-          <SubmitButton text="Continue" disabled={!isValid || !dirty} />
+          <SubmitButton text="Continue" disabled={!isValid || !dirty} loading={loading} />
         </div>
       </form>
     </PageContainer>

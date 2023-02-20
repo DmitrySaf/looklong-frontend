@@ -27,15 +27,20 @@ function InputUsername({ errorMessage, required, value, ...props }: Props) {
   const debouncedSearchTerm = useDebounce(value ?? '', 500)
 
   const searchUsers = async () => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => response.json())
-      .then(() => {
-        if (Math.random() > 0.5) {
-          setStatus(SearchStatus.Unique)
-        } else {
-          setStatus(SearchStatus.NonUnique)
-        }
-      })
+    const data = { username: value ?? '' }
+    const isUnique = await fetch('http://cf57662.tw1.ru/api/users/unique', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+    if (isUnique) {
+      setStatus(SearchStatus.Unique)
+    } else {
+      setStatus(SearchStatus.NonUnique)
+    }
   }
 
   useEffect(() => {

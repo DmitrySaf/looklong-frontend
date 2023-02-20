@@ -1,20 +1,18 @@
 import { useState } from 'react'
-import classNames from 'classnames'
 
 import { FieldTooltip, ColorCfg } from '@/components/FieldTooltip'
+import { Loader } from '../Loader'
 
 import './SubmitButton.scss'
 
 type Props = {
   text: string
   disabled?: boolean
+  loading?: boolean
 }
 
-function SubmitButton({ text, disabled }: Props) {
+function SubmitButton({ text, disabled, loading }: Props) {
   const [isHoverAcitve, setIsHoverActive] = useState(false)
-  const buttonClassnames = classNames({
-    'submit-button': true
-  })
 
   return (
     <FieldTooltip
@@ -24,13 +22,13 @@ function SubmitButton({ text, disabled }: Props) {
       color={ColorCfg.Gray}
     >
       <button
-        className={buttonClassnames}
+        className="submit-button"
         onPointerEnter={() => setIsHoverActive(true)}
         onPointerLeave={() => setIsHoverActive(false)}
         type="submit"
         disabled={disabled}
       >
-        {text}
+        {loading ? <Loader /> : text}
       </button>
     </FieldTooltip>
   )
