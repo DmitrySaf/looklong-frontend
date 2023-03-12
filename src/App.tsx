@@ -1,6 +1,4 @@
-import Registration from '@/views/registration/pages/Registration/Registration'
-
-import '@/assets/styles/index.scss'
+import { Registration } from '@/views/registration/pages/Registration'
 
 function App() {
   return <Registration />

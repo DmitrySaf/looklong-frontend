@@ -3,6 +3,41 @@ import classNames from 'classnames'
 
 import './FieldTooltip.scss'
 
+import styled from 'styled-components'
+
+const TooltipWrapper = styled.div`
+  position: relative;
+  width: fit-content;
+`
+
+const Tooltip = styled.div<Props>`
+  position: absolute;
+  left: calc(100% + 10px);
+  padding: 7px 12px;
+  background-color: $color-red;
+  border-radius: 7px;
+  color: $color-white;
+  width: max-content;
+  max-width: 200px;
+  transform: translateY(-50%);
+  top: 100%;
+  opacity: 0;
+  visibility: ${({ text }) => (text ? 'visible' : 'hidden')};
+  transition: $transition-time opacity, $transition-time top;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: -3px;
+    width: 6px;
+    height: 6px;
+    background: inherit;
+    border-radius: 1px;
+    transform: rotate(-45deg);
+  }
+`
+
 type Props = {
   children: ReactNode
   text?: string
@@ -22,10 +57,12 @@ function FieldTooltip({ children, text, color = ColorCfg.Red }: Props) {
   })
 
   return (
-    <div className="field-tooltip">
+    <TooltipWrapper className="field-tooltip">
       {children}
-      <div className={inputTextClassnames}>{text}</div>
-    </div>
+      <Tooltip text={text} color={color} className={inputTextClassnames}>
+        {text}
+      </Tooltip>
+    </TooltipWrapper>
   )
 }
 

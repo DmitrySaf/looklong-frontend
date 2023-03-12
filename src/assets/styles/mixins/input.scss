@@ -9,7 +9,7 @@
   transition: $transition-time border;
   outline: none;
   font-family: $font-family;
-  font-size: $font-size-small;
+  font-size: $font-size-regular;
 
   &::placeholder {
     transition: $transition-time color;

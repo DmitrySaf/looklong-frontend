@@ -25,6 +25,7 @@
   &__text {
     cursor: pointer;
     color: $color-primary-opacity;
+    font-size: $font-size-small;
 
     &_required::after {
       content: '*';

@@ -1,8 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { ThemeProvider } from 'styled-components'
+
 import App from './App'
-import Registration from './views/registration/pages/Registration/Registration'
+import { Registration } from './views/registration/pages/Registration/Registration'
+
+import { theme } from './assets/styles/Theme'
+import { Global } from './assets/styles/Global'
 
 const router = createBrowserRouter([
   {
@@ -18,6 +23,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+      <Global />
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </StrictMode>
 )

@@ -1,36 +1,12 @@
 @import '@/assets/styles/variables';
 
 .field-tooltip {
-  position: relative;
-  width: fit-content;
+  
 
   &__tooltip {
-    position: absolute;
-    left: calc(100% + 10px);
-    padding: 7px 12px;
-    background-color: $color-red;
-    border-radius: 7px;
-    color: $color-white;
-    width: max-content;
-    max-width: 200px;
-    transform: translateY(-50%);
+    
 
-    top: 100%;
-    opacity: 0;
-    visibility: hidden;
-    transition: $transition-time opacity, $transition-time top;
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 10px;
-      left: -3px;
-      width: 6px;
-      height: 6px;
-      background: inherit;
-      border-radius: 1px;
-      transform: rotate(-45deg);
-    }
+    
 
     &_shown {
       top: 50%;

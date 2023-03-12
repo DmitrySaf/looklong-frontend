@@ -1,7 +1,7 @@
 @import '@/assets/styles/variables';
 @import '@/assets/styles/mixins/dotted-circle';
 
-$field-width: 262px;
+$field-width: 244px;
 
 .input-photo {
   width: $field-width;
@@ -38,6 +38,7 @@ $field-width: 262px;
     color: $color-primary-opacity;
     transition: $transition-time all;
     text-transform: uppercase;
+    font-size: $font-size-small;
   }
 
   &__image {

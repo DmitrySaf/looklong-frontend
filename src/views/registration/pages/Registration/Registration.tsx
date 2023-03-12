@@ -1,6 +1,5 @@
-import { useFormik } from 'formik'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import { useFormik } from 'formik'
 
 import PageContainer from '@/components/Layouts/PageContainer/PageContainer'
 import { InputText } from '@/components/InputText'
@@ -8,6 +7,8 @@ import { InputCheckbox } from '@/components/InputCheckbox'
 import { SubmitButton } from '@/components/SubmitButton'
 import { InputPhoto } from '../../components/InputPhoto'
 import { InputUsername } from '../../components/InputUsername'
+
+import { createRegistrationFormPayload, initialValues } from '@/features/registration'
 
 import {
   createValidationSchema,
@@ -18,16 +19,16 @@ import {
   politicsValidation
 } from '@/shared/validators'
 
-import './Registration.scss'
-
-const initialValues = {
-  username: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-  politics: false,
-  notifications: false
-}
+import {
+  Header,
+  Form,
+  InputPhotoWrapper,
+  InputsWrapper,
+  Policies,
+  SubmitButtonWrapper,
+  RounterLink,
+  RouterLinkArrow
+} from './styled'
 
 const validationSchema = createValidationSchema({
   username: usernameValidation(),
@@ -37,23 +38,13 @@ const validationSchema = createValidationSchema({
   politics: politicsValidation()
 })
 
-function createPayload(form: typeof initialValues) {
-  const { username, email, password } = form
-
-  return {
-    username,
-    email,
-    password
-  }
-}
-
-function Registration() {
+export function Registration() {
   const [loading, setLoading] = useState(false)
   const { handleSubmit, getFieldProps, errors, touched, isValid, dirty } = useFormik({
     initialValues,
     validationSchema,
     async onSubmit(values) {
-      const data = createPayload(values)
+      const data = createRegistrationFormPayload(values)
 
       setLoading(true)
       await fetch('http://cf57662.tw1.ru/api/users', {
@@ -73,17 +64,17 @@ function Registration() {
 
   return (
     <PageContainer>
-      <form className="registration" onSubmit={handleSubmit}>
-        <div className="registration__header-wrapper">
-          <Link to={`..`} className="registration__router-link">
-            <div className="registration__router-link-arrow">{'<-'}</div> look long/
-          </Link>
-          <h1 className="registration__header">Sign up</h1>
+      <Form onSubmit={handleSubmit}>
+        <div>
+          <RounterLink to={`..`}>
+            <RouterLinkArrow>{'<-'}</RouterLinkArrow> look long/
+          </RounterLink>
+          <Header>Sign up</Header>
         </div>
-        <div className="registration__input-photo-wrapper">
+        <InputPhotoWrapper>
           <InputPhoto />
-        </div>
-        <div className="registration__inputs">
+        </InputPhotoWrapper>
+        <InputsWrapper>
           <InputUsername
             placeholder="Username"
             type="text"
@@ -112,8 +103,8 @@ function Registration() {
             errorMessage={getErrorMessage('confirmPassword')}
             {...getFieldProps('confirmPassword')}
           />
-        </div>
-        <div className="registration__policies">
+        </InputsWrapper>
+        <Policies>
           <InputCheckbox
             required
             errorMessage={getErrorMessage('politics')}
@@ -124,13 +115,11 @@ function Registration() {
           <InputCheckbox {...getFieldProps('notifications')}>
             <a href="#">Subcribe to notificates</a>
           </InputCheckbox>
-        </div>
-        <div className="registration__submit-button-wrapper">
+        </Policies>
+        <SubmitButtonWrapper>
           <SubmitButton text="Continue" disabled={!isValid || !dirty} loading={loading} />
-        </div>
-      </form>
+        </SubmitButtonWrapper>
+      </Form>
     </PageContainer>
   )
 }
-
-export default Registration
