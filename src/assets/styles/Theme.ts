@@ -21,6 +21,10 @@ export const theme = {
   fontFamilies: {
     main: '"Poppins", sans-serif'
   },
+  fontWeights: {
+    primary: '500',
+    heavy: '700'
+  },
   transitionDurations: {
     main: '300ms'
   }

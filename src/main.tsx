@@ -3,8 +3,9 @@ import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ThemeProvider } from 'styled-components'
 
-import App from './App'
-import { Registration } from './views/registration/pages/Registration/Registration'
+// import App from './App'
+import { Registration } from './views/registration/pages/Registration'
+import { Profile } from './views/profile/pages/Profile'
 
 import { theme } from './assets/styles/Theme'
 import { Global } from './assets/styles/Global'
@@ -12,7 +13,7 @@ import { Global } from './assets/styles/Global'
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <Profile />,
     errorElement: <h1 style={{ textAlign: 'center', marginTop: '400px' }}>404 NOT FOUND DEBIL</h1>
   },
   {
