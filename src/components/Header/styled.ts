@@ -11,9 +11,38 @@ export const SexSwitcher = styled.div`
   display: flex;
   gap: 12px;
 
-  & > span {
+  & > div {
     font-weight: ${({ theme }) => theme.fontWeights.heavy};
     cursor: pointer;
+    position: relative;
+
+    &:first-child::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      right: 0;
+      background-color: #000000;
+      display: block;
+      height: 3px;
+      width: 0;
+      transition: width 0.3s ease-in-out;
+    }
+
+    &:hover:first-child::after,
+    &:hover:last-child::after {
+      width: 100%;
+    }
+
+    &:last-child::after {
+      content: '';
+      position: absolute;
+      top: 18px;
+      background-color: #000000;
+      display: block;
+      height: 3px;
+      width: 0%;
+      transition: width 0.3s ease-in-out;
+    }
   }
 `
 

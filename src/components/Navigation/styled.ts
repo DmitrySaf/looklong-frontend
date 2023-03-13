@@ -3,8 +3,10 @@ import styled from 'styled-components'
 
 export const NavigationWrapper = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
+  grid-template-columns: repeat(7, max-content);
+  justify-content: space-between;
+  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryOpacity};
+  padding: 0 10px 18px;
 `
 
 export const NavigationLink = styled(Link)`
@@ -12,15 +14,11 @@ export const NavigationLink = styled(Link)`
   font-size: ${({ theme }) => theme.fontSizes.medium};
   line-height: ${({ theme }) => theme.lineHeights.medium};
   font-weight: ${({ theme }) => theme.fontWeights.heavy};
-  padding: 18px;
   cursor: pointer;
-  border-bottom: 2px solid ${({ theme }) => theme.colors.primaryOpacity};
   color: ${({ theme }) => theme.colors.primaryOpacity};
-  transition: ${({ theme }) => theme.transitionDurations.main} color,
-    ${({ theme }) => theme.transitionDurations.main} border-bottom;
+  transition: ${({ theme }) => theme.transitionDurations.main} color;
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
-    border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
   }
 `

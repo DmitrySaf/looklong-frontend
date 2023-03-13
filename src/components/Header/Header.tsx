@@ -25,8 +25,8 @@ export function Header({ username }: Props) {
     <>
       <HeaderWrapper>
         <SexSwitcher>
-          <span>Мужское</span>
-          <span>Женское</span>
+          <div>Мужское</div>
+          <div>Женское</div>
         </SexSwitcher>
         <HeaderTitle>look long</HeaderTitle>
         <HeaderActions>

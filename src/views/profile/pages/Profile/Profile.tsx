@@ -8,7 +8,7 @@ import { Navigation } from '@/components/Navigation'
 export function Profile() {
   return (
     <PageContainer>
-      <Header username="AskerLosharovich" />
+      <Header username="AskerLosharovich" icon="" />
       <Navigation />
     </PageContainer>
   )

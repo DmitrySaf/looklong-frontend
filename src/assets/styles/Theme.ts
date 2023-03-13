@@ -19,7 +19,7 @@ export const theme = {
     large: '150%'
   },
   fontFamilies: {
-    main: '"Poppins", sans-serif'
+    main: '"Montserrat", sans-serif'
   },
   fontWeights: {
     primary: '500',
