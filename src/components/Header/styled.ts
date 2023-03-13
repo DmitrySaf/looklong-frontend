@@ -4,7 +4,7 @@ export const HeaderWrapper = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   align-items: center;
-  margin-top: 85px;
+  margin: 85px 0 30px;
 `
 
 export const SexSwitcher = styled.div`
